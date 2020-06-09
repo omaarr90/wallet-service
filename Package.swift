@@ -14,8 +14,12 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-sqlite.git", from: "3.0.0")
     ],
     targets: [
-        .target(name: "App", dependencies: ["FluentSQLite", "Vapor"]),
+        .target(name: "Entities"),
+        .target(name: "UseCases", dependencies: ["Entities"]),
+        .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "UseCases"]),
         .target(name: "Run", dependencies: ["App"]),
+        .testTarget(name: "EntitiesTests", dependencies: ["Entities"]),
+        .testTarget(name: "UseCasesTests", dependencies: ["UseCases"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
 )
