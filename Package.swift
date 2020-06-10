@@ -15,10 +15,12 @@ let package = Package(
     ],
     targets: [
         .target(name: "Entities"),
-        .target(name: "UseCases", dependencies: ["Entities"]),
+        .target(name: "Utilties"),
+        .target(name: "UseCases", dependencies: ["Entities", "Utilties"]),
         .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "UseCases"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "EntitiesTests", dependencies: ["Entities"]),
+        .testTarget(name: "UtiltiesTests", dependencies: ["Utilties"]),
         .testTarget(name: "UseCasesTests", dependencies: ["UseCases"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
