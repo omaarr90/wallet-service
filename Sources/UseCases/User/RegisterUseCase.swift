@@ -7,19 +7,25 @@
 
 import Foundation
 
-struct RegisterUseCase: UseCase {
+public struct RegisterUseCase: UseCase {
+    
+    private var provider: UserProvider
     
     struct RegisterInput {
-        let fullname: String?
+        let fullname: String
         let phoneNumber: Int
     }
     
     typealias Input = RegisterInput
     
     typealias Output = Bool
+    
+    init(provider: UserProvider) {
+        self.provider = provider
+    }
 
     func execute(input: RegisterInput) -> Bool {
-        return true
+        return false
     }
 
 }

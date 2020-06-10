@@ -11,16 +11,31 @@ import XCTest
 final class RegesterUseCaseTests: XCTestCase {
     
     func testRegisterNewUserWithNewMobileNumber() {
-        XCTFail()
+        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
+        XCTAssertTrue(RegisterUseCase().execute(input: input))
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {
         XCTFail()
     }
     
+    func testRegisterNewUserWithInvalidMobileNumber() {
+        XCTFail()
+    }
+
+    func testRegisterNewUserWithValidFullname() {
+        XCTFail()
+    }
+
+    func testRegisterNewUserWithInvalidFullname() {
+        XCTFail()
+    }
 
     static let allTests = [
         ("testRegisterNewUserWithMobileNumber", testRegisterNewUserWithNewMobileNumber),
-        ("testRegisterNewUserWithExistingMobileNumber", testRegisterNewUserWithExistingMobileNumber)
+        ("testRegisterNewUserWithExistingMobileNumber", testRegisterNewUserWithExistingMobileNumber),
+        ("testRegisterNewUserWithInvalidMobileNumber", testRegisterNewUserWithInvalidMobileNumber),
+        ("testRegisterNewUserWithValidFullname", testRegisterNewUserWithValidFullname),
+        ("testRegisterNewUserWithInvalidFullname", testRegisterNewUserWithInvalidFullname)
     ]
 }

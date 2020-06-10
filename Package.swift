@@ -17,11 +17,13 @@ let package = Package(
         .target(name: "Entities"),
         .target(name: "Utilties"),
         .target(name: "UseCases", dependencies: ["Entities", "Utilties"]),
-        .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "UseCases"]),
+        .target(name: "Providers", dependencies: ["Entities", "Utilties", "UseCases"]),
+        .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "UseCases", "Utilties", "Providers"]),
         .target(name: "Run", dependencies: ["App"]),
         .testTarget(name: "EntitiesTests", dependencies: ["Entities"]),
         .testTarget(name: "UtiltiesTests", dependencies: ["Utilties"]),
-        .testTarget(name: "UseCasesTests", dependencies: ["UseCases"]),
+        .testTarget(name: "UseCasesTests", dependencies: ["UseCases", "Providers"]),
+        .testTarget(name: "ProvidersTests", dependencies: ["Providers"]),
         .testTarget(name: "AppTests", dependencies: ["App"])
     ]
 )
