@@ -21,26 +21,24 @@ final class RegesterUseCaseTests: XCTestCase {
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {
-        XCTFail()
+        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
+        XCTAssertFalse(RegisterUseCase(provider: userProviderMock).execute(input: input))
     }
     
     func testRegisterNewUserWithInvalidMobileNumber() {
-        XCTFail()
+        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 9665426522)
+        XCTAssertFalse(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
     }
 
-    func testRegisterNewUserWithValidFullname() {
-        XCTFail()
-    }
-
-    func testRegisterNewUserWithInvalidFullname() {
-        XCTFail()
+    func testRegisterNewUserWithEmptyFullname() {
+        let input = RegisterUseCase.Input(fullname: "", phoneNumber: 966542652273)
+        XCTAssertFalse(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
     }
 
     static let allTests = [
         ("testRegisterNewUserWithMobileNumber", testRegisterNewUserWithNewMobileNumber),
         ("testRegisterNewUserWithExistingMobileNumber", testRegisterNewUserWithExistingMobileNumber),
         ("testRegisterNewUserWithInvalidMobileNumber", testRegisterNewUserWithInvalidMobileNumber),
-        ("testRegisterNewUserWithValidFullname", testRegisterNewUserWithValidFullname),
-        ("testRegisterNewUserWithInvalidFullname", testRegisterNewUserWithInvalidFullname)
+        ("testRegisterNewUserWithEmptyFullname", testRegisterNewUserWithEmptyFullname)
     ]
 }
