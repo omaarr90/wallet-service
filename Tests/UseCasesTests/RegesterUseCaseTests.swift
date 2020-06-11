@@ -6,13 +6,18 @@
 //
 
 import XCTest
+import Providers
 @testable import UseCases
 
 final class RegesterUseCaseTests: XCTestCase {
     
+
+    private let emptyUserProviderMock = EmptyUserProviderMock()
+    private let userProviderMock = UserProviderMock()
+    
     func testRegisterNewUserWithNewMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
-        XCTAssertTrue(RegisterUseCase().execute(input: input))
+        XCTAssertTrue(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {

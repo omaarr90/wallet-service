@@ -2,8 +2,11 @@ import Foundation
 import Entities
 import UseCases
 
-struct EmptyUserProviderMock: UserProvider {
-    func allUsers() -> [User] {
+public struct EmptyUserProviderMock: UserProvider {
+    
+    public init() {}
+    
+    public func allUsers() -> [User] {
         return []
     }
     

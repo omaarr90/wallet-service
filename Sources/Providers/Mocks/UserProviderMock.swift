@@ -9,8 +9,10 @@ import Foundation
 import Entities
 import UseCases
 
-struct UserProviderMock: UserProvider {
+public class UserProviderMock: UserProvider {
     
+    public init() {}
+
     private let users = [
         User(fullname: "Omar Alshammari",
              username: "omar_123456",
@@ -21,7 +23,7 @@ struct UserProviderMock: UserProvider {
 
     ]
     
-    func allUsers() -> [User] {
+    public func allUsers() -> [User] {
         return users
     }
 }
