@@ -10,4 +10,5 @@ import Entities
 
 public protocol UserProvider {
     func allUsers() -> [Entities.User]
+    func save(user: Entities.User) -> Bool
 }

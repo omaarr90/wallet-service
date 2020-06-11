@@ -13,7 +13,7 @@ public class UserProviderMock: UserProvider {
     
     public init() {}
 
-    private let users = [
+    private var users = [
         User(fullname: "Omar Alshammari",
              username: "omar_123456",
              phoneNumber: 966542652273),
@@ -25,5 +25,10 @@ public class UserProviderMock: UserProvider {
     
     public func allUsers() -> [User] {
         return users
+    }
+    
+    public func save(user: User) -> Bool {
+        users.append(user)
+        return true
     }
 }

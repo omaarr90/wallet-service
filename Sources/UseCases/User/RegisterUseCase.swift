@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Entities
+import Utilties
 
 public struct RegisterUseCase: UseCase {
     
@@ -25,7 +27,26 @@ public struct RegisterUseCase: UseCase {
     }
 
     func execute(input: RegisterInput) -> Bool {
-        return false
+        
+        guard !input.fullname.isEmpty else {
+            return false
+        }
+        
+        guard input.phoneNumber.isValidSaudiNumber() else {
+            return false
+        }
+        
+        guard !provider.allUsers().contains(where: { user in
+            user.phoneNumber == input.phoneNumber
+        }) else {
+            return false
+        }
+        
+        let username = String.generateRanomUsername(from: input.fullname)
+        
+        let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
+        
+        return provider.save(user: user)
     }
 
 }
