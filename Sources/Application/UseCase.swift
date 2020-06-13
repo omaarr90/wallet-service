@@ -8,14 +8,6 @@
 
 import Foundation
 
-protocol UseCaseInput {
-    // Empty Protocol
-}
-
-protocol UseCaseOutput {
-    // Empty Protocol
-}
-
 protocol UseCase {
     
     associatedtype Input

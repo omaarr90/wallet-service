@@ -9,11 +9,11 @@ import Foundation
 
 
 struct LoginUseCase: UseCase {
-    struct LoginInput: UseCaseInput {
+    struct LoginInput {
         //
     }
     
-    struct LoginOutput: UseCaseOutput {
+    struct LoginOutput {
         let success: Bool
     }
     

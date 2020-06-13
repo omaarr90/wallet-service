@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "wallet-service",
     products: [
-        .library(name: "wallet-service", targets: ["App"]),
+        .library(name: "wallet-service", targets: ["RestApi"]),
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -14,17 +14,17 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-sqlite.git", from: "3.0.0")
     ],
     targets: [
-        .target(name: "Entities"),
+        .target(name: "Domain"),
         .target(name: "Utilties"),
-        .target(name: "UseCases", dependencies: ["Entities", "Utilties"]),
-        .target(name: "Providers", dependencies: ["Entities", "Utilties", "UseCases"]),
-        .target(name: "App", dependencies: ["FluentSQLite", "Vapor", "UseCases", "Utilties", "Providers"]),
-        .target(name: "Run", dependencies: ["App"]),
-        .testTarget(name: "EntitiesTests", dependencies: ["Entities"]),
+        .target(name: "Application", dependencies: ["Domain", "Utilties"]),
+        .target(name: "Persistance", dependencies: ["Domain", "Utilties", "Application"]),
+        .target(name: "RestApi", dependencies: ["FluentSQLite", "Vapor", "Application", "Utilties", "Persistance"]),
+        .target(name: "Run", dependencies: ["RestApi"]),
+        .testTarget(name: "DomainTests", dependencies: ["Domain"]),
         .testTarget(name: "UtiltiesTests", dependencies: ["Utilties"]),
-        .testTarget(name: "UseCasesTests", dependencies: ["UseCases", "Providers"]),
-        .testTarget(name: "ProvidersTests", dependencies: ["Providers"]),
-        .testTarget(name: "AppTests", dependencies: ["App"])
+        .testTarget(name: "ApplicationTests", dependencies: ["Application", "Persistance"]),
+        .testTarget(name: "PersistanceTests", dependencies: ["Persistance"]),
+        .testTarget(name: "RestApiTests", dependencies: ["RestApi"])
     ]
 )
 
