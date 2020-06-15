@@ -7,7 +7,7 @@ let package = Package(
        .macOS(.v10_15)
     ],
     products: [
-        .library(name: "wallet-service", targets: ["RestApi"]),
+        .library(name: "wallet-service", targets: ["VaporApp"]),
     ],
     dependencies: [
         // 💧 A server-side Swift web framework.
@@ -32,13 +32,13 @@ let package = Package(
                                .target(name: "Utilties"),
                                .target(name: "Application"),
                                .product(name: "Hydra", package: "Hydra")]),
-        .target(name: "RestApi",
+        .target(name: "VaporApp",
                 dependencies: [.product(name: "Vapor", package: "vapor"),
                                .target(name: "Application"),
                                .target(name: "Utilties"),
                                .target(name: "Persistance")]),
         .target(name: "Run",
-                dependencies: [.target(name: "RestApi")]),
+                dependencies: [.target(name: "VaporApp")]),
         
         // Tests
         .testTarget(name: "DomainTests",
@@ -50,8 +50,8 @@ let package = Package(
                                    .target(name: "Persistance")]),
         .testTarget(name: "PersistanceTests",
                     dependencies: [.target(name: "Persistance")]),
-        .testTarget(name: "RestApiTests",
-                    dependencies: [.target(name: "RestApi")])
+        .testTarget(name: "VaporAppTests",
+                    dependencies: [.target(name: "VaporApp")])
     ]
 )
 

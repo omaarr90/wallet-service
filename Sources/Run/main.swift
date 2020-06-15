@@ -1,4 +1,4 @@
-import RestApi
+import VaporApp
 import Vapor
 
 var env = try Environment.detect()
