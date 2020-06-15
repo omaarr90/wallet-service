@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import Entities
+import Domain
 import Utilties
+import Hydra
 
 public struct RegisterUseCase: UseCase {
     
@@ -20,33 +21,37 @@ public struct RegisterUseCase: UseCase {
     
     typealias Input = RegisterInput
     
-    typealias Output = Bool
+    typealias Output = User
     
     init(provider: UserProvider) {
         self.provider = provider
     }
-
-    func execute(input: RegisterInput) -> Bool {
-        
+    
+    func execute(input: RegisterInput) -> Promise<User> {
         guard !input.fullname.isEmpty else {
-            return false
+            let error = UseCaseError.invalidInput(reason: "Full name must not be empty")
+            return Promise(rejected: error)
         }
         
         guard input.phoneNumber.isValidSaudiNumber() else {
-            return false
+            let error = UseCaseError.invalidInput(reason: "Mobile number should be a valid Saudi mobile number")
+            return Promise(rejected: error)
         }
         
-        guard !provider.allUsers().contains(where: { user in
-            user.phoneNumber == input.phoneNumber
-        }) else {
-            return false
+        return provider.allUsers()
+            .then { users -> Promise<User> in
+                if users.contains(where: { user in
+                    user.phoneNumber == input.phoneNumber
+                }) {
+                    throw UseCaseError.duplicateInput
+                }
+                
+                let username = String.generateRanomUsername(from: input.fullname)
+                
+                let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
+                
+                return self.provider.save(user: user)
         }
-        
-        let username = String.generateRanomUsername(from: input.fullname)
-        
-        let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
-        
-        return provider.save(user: user)
     }
-
+    
 }

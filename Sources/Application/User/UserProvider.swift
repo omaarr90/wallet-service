@@ -6,9 +6,10 @@
 //
 
 import Foundation
-import Entities
+import Domain
+import Hydra
 
 public protocol UserProvider {
-    func allUsers() -> [Entities.User]
-    func save(user: Entities.User) -> Bool
+    func allUsers() -> Promise<[User]>
+    func save(user: Domain.User) -> Promise<User>
 }

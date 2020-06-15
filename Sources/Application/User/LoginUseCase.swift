@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Hydra
 
 struct LoginUseCase: UseCase {
     struct LoginInput {
@@ -21,9 +21,12 @@ struct LoginUseCase: UseCase {
     
     typealias Output = LoginOutput
     
+    func execute(input: LoginInput) -> Promise<LoginOutput> {
+        return Promise<LoginOutput> { (resolver, rejecter, status) in
+            resolver(LoginOutput(success: true))
+            return
+        }
         
-    func execute(input: Input) -> Output {
-        return Output(success: true)
     }
-
+    
 }

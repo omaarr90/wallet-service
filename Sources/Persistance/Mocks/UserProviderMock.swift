@@ -6,8 +6,9 @@
 //
 
 import Foundation
-import Entities
-import UseCases
+import Domain
+import Application
+import Hydra
 
 public class UserProviderMock: UserProvider {
     
@@ -23,12 +24,16 @@ public class UserProviderMock: UserProvider {
 
     ]
     
-    public func allUsers() -> [User] {
-        return users
+    public func allUsers() -> Promise<[User]> {
+        return Promise<[User]> { resolver, rejecter, status in
+            resolver(self.users)
+        }
     }
     
-    public func save(user: User) -> Bool {
-        users.append(user)
-        return true
+    public func save(user: User) -> Promise<User> {
+        return Promise<User> { resolver, rejecter, status in
+            self.users.append(user)
+            resolver(user)
+        }
     }
 }

@@ -6,8 +6,9 @@
 //
 
 import XCTest
-import Providers
-@testable import UseCases
+import Persistance
+import Hydra
+@testable import Application
 
 final class RegesterUseCaseTests: XCTestCase {
     
@@ -17,22 +18,48 @@ final class RegesterUseCaseTests: XCTestCase {
     
     func testRegisterNewUserWithNewMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
-        XCTAssertTrue(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
+        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
+        do {
+            let result = try await(useCase.execute(input: input))
+            XCTAssertTrue(result.fullname == input.fullname)
+            XCTAssertTrue(result.phoneNumber == input.phoneNumber)
+            XCTAssertNotNil(result.username)
+        } catch let error {
+            XCTFail("\(error.localizedDescription)")
+        }
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
-        XCTAssertFalse(RegisterUseCase(provider: userProviderMock).execute(input: input))
+        let useCase = RegisterUseCase(provider: userProviderMock)
+        do {
+            let result = try await(useCase.execute(input: input))
+            XCTFail("Should thorw duplicate error")
+        } catch {
+            XCTAssert(true)
+        }
     }
     
     func testRegisterNewUserWithInvalidMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 9665426522)
-        XCTAssertFalse(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
+        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
+        do {
+            let result = try await(useCase.execute(input: input))
+            XCTFail("Should throw invalid input error")
+        } catch {
+            XCTAssert(true)
+        }
     }
 
     func testRegisterNewUserWithEmptyFullname() {
         let input = RegisterUseCase.Input(fullname: "", phoneNumber: 966542652273)
-        XCTAssertFalse(RegisterUseCase(provider: emptyUserProviderMock).execute(input: input))
+        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
+        do {
+            let result = try await(useCase.execute(input: input))
+            XCTFail("Should throw invalid input error")
+        } catch {
+            XCTAssert(true)
+        }
     }
 
     static let allTests = [

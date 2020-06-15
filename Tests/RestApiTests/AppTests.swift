@@ -1,4 +1,4 @@
-import App
+import RestApi
 import XCTest
 
 final class AppTests: XCTestCase {
