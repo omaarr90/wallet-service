@@ -7,7 +7,6 @@
 
 import XCTest
 import Persistance
-import Hydra
 @testable import Application
 
 final class RegesterUseCaseTests: XCTestCase {
@@ -19,46 +18,83 @@ final class RegesterUseCaseTests: XCTestCase {
     func testRegisterNewUserWithNewMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
         let useCase = RegisterUseCase(provider: emptyUserProviderMock)
-        do {
-            let result = try await(useCase.execute(input: input))
-            XCTAssertTrue(result.fullname == input.fullname)
-            XCTAssertTrue(result.phoneNumber == input.phoneNumber)
-            XCTAssertNotNil(result.username)
-        } catch let error {
-            XCTFail("\(error.localizedDescription)")
+        let expectation = self.expectation(description: "Scaling")
+        var result: Result<RegisterUseCase.Output, Error>?
+        useCase.execute(input: input) {
+            result = $0
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(result)
+        switch result! {
+        case let .failure(error):
+            XCTFail(error.localizedDescription)
+        case let .success(output):
+            XCTAssertTrue(output.fullname == input.fullname)
+            XCTAssertTrue(output.phoneNumber == input.phoneNumber)
+            XCTAssertNotNil(output.username)
+
         }
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
         let useCase = RegisterUseCase(provider: userProviderMock)
-        do {
-            let result = try await(useCase.execute(input: input))
-            XCTFail("Should thorw duplicate error")
-        } catch {
+        let expectation = self.expectation(description: "Scaling")
+        var result: Result<RegisterUseCase.Output, Error>?
+        useCase.execute(input: input) {
+            result = $0
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(result)
+        switch result! {
+        case .failure:
             XCTAssert(true)
+        case .success:
+            XCTFail("Should thorw duplicate error")
         }
     }
     
     func testRegisterNewUserWithInvalidMobileNumber() {
         let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 9665426522)
         let useCase = RegisterUseCase(provider: emptyUserProviderMock)
-        do {
-            let result = try await(useCase.execute(input: input))
-            XCTFail("Should throw invalid input error")
-        } catch {
+        let expectation = self.expectation(description: "Scaling")
+        var result: Result<RegisterUseCase.Output, Error>?
+        useCase.execute(input: input) {
+            result = $0
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(result)
+        switch result! {
+        case .failure:
             XCTAssert(true)
+        case .success:
+            XCTFail("Should throw invalid input error")
         }
     }
 
     func testRegisterNewUserWithEmptyFullname() {
         let input = RegisterUseCase.Input(fullname: "", phoneNumber: 966542652273)
         let useCase = RegisterUseCase(provider: emptyUserProviderMock)
-        do {
-            let result = try await(useCase.execute(input: input))
-            XCTFail("Should throw invalid input error")
-        } catch {
+        let expectation = self.expectation(description: "Scaling")
+        var result: Result<RegisterUseCase.Output, Error>?
+        useCase.execute(input: input) {
+            result = $0
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        XCTAssertNotNil(result)
+        switch result! {
+        case .failure:
             XCTAssert(true)
+        case .success:
+            XCTFail("Should throw invalid input error")
         }
     }
 

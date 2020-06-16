@@ -18,7 +18,7 @@ let package = Package(
         
         
         // Lightweight full-featured Promises, Async & Await Library in Swift.
-        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
+//        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
     ],
     targets: [
         .target(name: "Domain"),
@@ -26,19 +26,23 @@ let package = Package(
         .target(name: "Application",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),
-                               .product(name: "Hydra", package: "Hydra")]),
+//                               .product(name: "Hydra", package: "Hydra")
+        ]),
         .target(name: "Persistance",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),
                                .target(name: "Application"),
-                               .product(name: "Hydra", package: "Hydra")]),
+//                               .product(name: "Hydra", package: "Hydra")
+        ]),
         .target(name: "VaporApp",
                 dependencies: [.product(name: "Vapor", package: "vapor"),
                                .target(name: "Application"),
                                .target(name: "Utilties"),
-                               .target(name: "Persistance")]),
+                               .target(name: "Persistance")
+        ]),
         .target(name: "Run",
-                dependencies: [.target(name: "VaporApp")]),
+                dependencies: [.target(name: "VaporApp")
+        ]),
         
         // Tests
         .testTarget(name: "DomainTests",

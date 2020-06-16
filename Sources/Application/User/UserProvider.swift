@@ -7,9 +7,8 @@
 
 import Foundation
 import Domain
-import Hydra
 
 public protocol UserProvider {
-    func allUsers() -> Promise<[User]>
-    func save(user: Domain.User) -> Promise<User>
+    func allUsers(completion: @escaping (Result<[User], Error>) -> Void)
+    func save(user: Domain.User, completion: @escaping (Result<User, Error>) -> Void)
 }

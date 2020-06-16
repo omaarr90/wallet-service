@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Hydra
 
 enum UseCaseError: Swift.Error {
     case invalidInput(reason: String)
@@ -19,5 +18,5 @@ protocol UseCase {
     associatedtype Input
     associatedtype Output
     
-    func execute(input: Input) -> Promise<Output>
+    func execute(input: Input, completion: @escaping (Result<Output, Error>) -> Void)
 }

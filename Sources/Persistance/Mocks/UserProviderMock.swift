@@ -8,9 +8,10 @@
 import Foundation
 import Domain
 import Application
-import Hydra
+//import Hydra
 
 public class UserProviderMock: UserProvider {
+    
     
     public init() {}
 
@@ -24,16 +25,12 @@ public class UserProviderMock: UserProvider {
 
     ]
     
-    public func allUsers() -> Promise<[User]> {
-        return Promise<[User]> { resolver, rejecter, status in
-            resolver(self.users)
-        }
+    public func allUsers(completion: @escaping (Result<[User], Error>) -> Void) {
+        completion(.success(self.users))
     }
     
-    public func save(user: User) -> Promise<User> {
-        return Promise<User> { resolver, rejecter, status in
-            self.users.append(user)
-            resolver(user)
-        }
+    public func save(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+        self.users.append(user)
+        completion(.success(user))
     }
 }

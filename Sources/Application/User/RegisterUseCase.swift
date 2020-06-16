@@ -8,7 +8,6 @@
 import Foundation
 import Domain
 import Utilties
-import Hydra
 
 public struct RegisterUseCase: UseCase {
     
@@ -27,30 +26,38 @@ public struct RegisterUseCase: UseCase {
         self.provider = provider
     }
     
-    func execute(input: RegisterInput) -> Promise<User> {
+    func execute(input: RegisterInput, completion: @escaping (Result<User, Error>) -> Void) {
         guard !input.fullname.isEmpty else {
             let error = UseCaseError.invalidInput(reason: "Full name must not be empty")
-            return Promise(rejected: error)
+            completion(.failure(error))
+            return
         }
         
         guard input.phoneNumber.isValidSaudiNumber() else {
             let error = UseCaseError.invalidInput(reason: "Mobile number should be a valid Saudi mobile number")
-            return Promise(rejected: error)
+            completion(.failure(error))
+            return
         }
         
-        return provider.allUsers()
-            .then { users -> Promise<User> in
+        provider.allUsers { result in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            case let .success(users):
                 if users.contains(where: { user in
                     user.phoneNumber == input.phoneNumber
                 }) {
-                    throw UseCaseError.duplicateInput
+                    completion(.failure(UseCaseError.duplicateInput))
+                } else {
+                    let username = String.generateRanomUsername(from: input.fullname)
+                    
+                    let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
+                    
+                    self.provider.save(user: user) { result in
+                        completion(result)
+                    }
                 }
-                
-                let username = String.generateRanomUsername(from: input.fullname)
-                
-                let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
-                
-                return self.provider.save(user: user)
+            }
         }
     }
     
