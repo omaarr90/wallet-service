@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Int {
+public extension Int64 {
     func isValidSaudiNumber() -> Bool {
         let str = "\(self)"
         

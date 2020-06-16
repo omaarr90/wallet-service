@@ -7,16 +7,33 @@
 //
 
 import Foundation
+import Domain
 
-enum UseCaseError: Swift.Error {
+public enum UseCaseError: Swift.Error {
     case invalidInput(reason: String)
     case duplicateInput
+    
+    public var errorDescription: String? {
+        switch self {
+        case .duplicateInput:
+            return "User Already Exist"
+        case .invalidInput(let reason):
+            return reason
+        }
+    }
 }
 
-protocol UseCase {
+public struct RegisterUseCaseInput {
+    public let fullname: String
+    public let phoneNumber: Int64
     
-    associatedtype Input
-    associatedtype Output
-    
-    func execute(input: Input, completion: @escaping (Result<Output, Error>) -> Void)
+    public init(fullname: String, phoneNumber: Int64) {
+        self.fullname = fullname
+        self.phoneNumber = phoneNumber
+    }
+}
+
+
+public protocol RegisterUseCase {
+    func execute(input: RegisterUseCaseInput, completion: @escaping (Result<User, Error>) -> Void)
 }

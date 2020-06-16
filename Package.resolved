@@ -29,15 +29,6 @@
         }
       },
       {
-        "package": "Hydra",
-        "repositoryURL": "https://github.com/malcommac/Hydra.git",
-        "state": {
-          "branch": null,
-          "revision": "fe3e82646f0de8500a730348fd13bfa7e7058648",
-          "version": "2.0.2"
-        }
-      },
-      {
         "package": "routing-kit",
         "repositoryURL": "https://github.com/vapor/routing-kit.git",
         "state": {

@@ -28,7 +28,7 @@ let package = Package(
                                .target(name: "Utilties"),
 //                               .product(name: "Hydra", package: "Hydra")
         ]),
-        .target(name: "Persistance",
+        .target(name: "Repository",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),
                                .target(name: "Application"),
@@ -38,7 +38,7 @@ let package = Package(
                 dependencies: [.product(name: "Vapor", package: "vapor"),
                                .target(name: "Application"),
                                .target(name: "Utilties"),
-                               .target(name: "Persistance")
+                               .target(name: "Repository")
         ]),
         .target(name: "Run",
                 dependencies: [.target(name: "VaporApp")
@@ -51,9 +51,9 @@ let package = Package(
                     dependencies: [.target(name: "Utilties")]),
         .testTarget(name: "ApplicationTests",
                     dependencies: [.target(name: "Application"),
-                                   .target(name: "Persistance")]),
-        .testTarget(name: "PersistanceTests",
-                    dependencies: [.target(name: "Persistance")]),
+                                   .target(name: "Repository")]),
+        .testTarget(name: "RepositoryTests",
+                    dependencies: [.target(name: "Repository")]),
         .testTarget(name: "VaporAppTests",
                     dependencies: [.target(name: "VaporApp")])
     ]

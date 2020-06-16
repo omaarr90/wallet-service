@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LoginUseCase: UseCase {
+struct LoginUseCase {
     
     struct LoginInput {
         //

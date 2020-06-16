@@ -3,7 +3,7 @@ import Domain
 import Application
 //import Hydra
 
-public class EmptyUserProviderMock: UserProvider {
+public class EmptyUserRepositoryMock: UserRepository {
     
     
     private var users: [User] = []

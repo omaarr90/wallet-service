@@ -10,7 +10,7 @@ import Domain
 import Application
 //import Hydra
 
-public class UserProviderMock: UserProvider {
+public class UserRepositoryMock: UserRepository {
     
     
     public init() {}

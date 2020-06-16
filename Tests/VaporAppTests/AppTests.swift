@@ -1,4 +1,4 @@
-import RestApi
+import VaporApp
 import XCTest
 
 final class AppTests: XCTestCase {

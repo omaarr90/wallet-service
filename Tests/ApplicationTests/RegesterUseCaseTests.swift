@@ -6,20 +6,21 @@
 //
 
 import XCTest
-import Persistance
+import Repository
+import Domain
 @testable import Application
 
 final class RegesterUseCaseTests: XCTestCase {
     
 
-    private let emptyUserProviderMock = EmptyUserProviderMock()
-    private let userProviderMock = UserProviderMock()
+    private let emptyUserProviderMock = EmptyUserRepositoryMock()
+    private let userProviderMock = UserRepositoryMock()
     
     func testRegisterNewUserWithNewMobileNumber() {
-        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
-        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
+        let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 966542652273)
+        let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
         let expectation = self.expectation(description: "Scaling")
-        var result: Result<RegisterUseCase.Output, Error>?
+        var result: Result<User, Error>?
         useCase.execute(input: input) {
             result = $0
             expectation.fulfill()
@@ -39,10 +40,10 @@ final class RegesterUseCaseTests: XCTestCase {
     }
 
     func testRegisterNewUserWithExistingMobileNumber() {
-        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 966542652273)
-        let useCase = RegisterUseCase(provider: userProviderMock)
-        let expectation = self.expectation(description: "Scaling")
-        var result: Result<RegisterUseCase.Output, Error>?
+        let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 966542652273)
+        let useCase = RegisterByPhoneUseCaseImpl(repo: userProviderMock)
+        let expectation = self.expectation(description: "Registering")
+        var result: Result<User, Error>?
         useCase.execute(input: input) {
             result = $0
             expectation.fulfill()
@@ -59,10 +60,10 @@ final class RegesterUseCaseTests: XCTestCase {
     }
     
     func testRegisterNewUserWithInvalidMobileNumber() {
-        let input = RegisterUseCase.Input(fullname: "Omar Alshammari", phoneNumber: 9665426522)
-        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
-        let expectation = self.expectation(description: "Scaling")
-        var result: Result<RegisterUseCase.Output, Error>?
+        let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 9665426522)
+        let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
+        let expectation = self.expectation(description: "Registering")
+        var result: Result<User, Error>?
         useCase.execute(input: input) {
             result = $0
             expectation.fulfill()
@@ -79,10 +80,10 @@ final class RegesterUseCaseTests: XCTestCase {
     }
 
     func testRegisterNewUserWithEmptyFullname() {
-        let input = RegisterUseCase.Input(fullname: "", phoneNumber: 966542652273)
-        let useCase = RegisterUseCase(provider: emptyUserProviderMock)
-        let expectation = self.expectation(description: "Scaling")
-        var result: Result<RegisterUseCase.Output, Error>?
+        let input = RegisterUseCaseInput(fullname: "", phoneNumber: 966542652273)
+        let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
+        let expectation = self.expectation(description: "Registering")
+        var result: Result<User, Error>?
         useCase.execute(input: input) {
             result = $0
             expectation.fulfill()

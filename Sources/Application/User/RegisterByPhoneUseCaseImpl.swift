@@ -9,29 +9,16 @@ import Foundation
 import Domain
 import Utilties
 
-public struct RegisterUseCaseImpl {
+public struct RegisterByPhoneUseCaseImpl: RegisterUseCase {
     
-    private var provider: UserRepository
+    private let repo: UserRepository
     
-    public struct RegisterInput {
-        public let fullname: String
-        public let phoneNumber: Int64
-        
-        public init(fullname: String, phoneNumber: Int64) {
-            self.fullname = fullname
-            self.phoneNumber = phoneNumber
-        }
+
+    public init(repo: UserRepository) {
+        self.repo = repo
     }
     
-    public typealias Input = RegisterInput
-    
-    public typealias Output = User
-    
-    public init(provider: UserRepository) {
-        self.provider = provider
-    }
-    
-    public func execute(input: RegisterInput, completion: @escaping (Result<User, Error>) -> Void) {
+    public func execute(input: RegisterUseCaseInput, completion: @escaping (Result<User, Error>) -> Void) {
         guard !input.fullname.isEmpty else {
             let error = UseCaseError.invalidInput(reason: "Full name must not be empty")
             completion(.failure(error))
@@ -44,7 +31,7 @@ public struct RegisterUseCaseImpl {
             return
         }
         
-        provider.allUsers { result in
+        repo.allUsers { result in
             switch result {
             case let .failure(error):
                 completion(.failure(error))
@@ -58,7 +45,7 @@ public struct RegisterUseCaseImpl {
                     
                     let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
                     
-                    self.provider.save(user: user) { result in
+                    self.repo.save(user: user) { result in
                         completion(result)
                     }
                 }

@@ -1,5 +1,4 @@
 import XCTest
-import Hydra
 @testable import Application
 
 final class LoginUseCaseTests: XCTestCase {

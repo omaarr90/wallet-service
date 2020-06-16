@@ -8,7 +8,7 @@
 import Foundation
 import Domain
 
-public protocol UserProvider {
+public protocol UserRepository {
     func allUsers(completion: @escaping (Result<[User], Error>) -> Void)
     func save(user: Domain.User, completion: @escaping (Result<User, Error>) -> Void)
 }
