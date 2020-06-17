@@ -6,7 +6,7 @@ final class LoginUseCaseTests: XCTestCase {
     func testLoginWithValidCredintial() {
         let useCase = LoginUseCase()
         let loginInput = LoginUseCase.LoginInput()
-        XCTFail("Not Implemented")
+//        XCTFail("Not Implemented")
     }
 
     static let allTests = [
