@@ -14,7 +14,7 @@ jobs:
       uses: fwal/setup-swift@v1.0.1
       with:
       # Swift version to configure
-        swift-version: 5.2.4# default is 5.2.2
+        swift-version: '5.2.4'# default is 5.2.2
     - name: Install xcbeautify
       uses: Cyberbeni/install-swift-tool@v1
       with:
