@@ -8,26 +8,19 @@ jobs:
   vapor_macos:
     runs-on: macos-latest
     env:
-      DEVELOPER_DIR: /Applications/Xcode_11.4_beta.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_11.6_beta.app/Contents/Developer
     steps:
     - uses: actions/checkout@v2
-    - name: Install xcbeautify
-      uses: Cyberbeni/install-swift-tool@v2
-      with:
-        url: https://github.com/Cyberbeni/xcbeautify
-        branch: linux-fixes # optional
-    - name: build
+    - name: Build app
       run: swift build -v
-    - name: Test
-      run: |
-        set -o pipefail
-        swift test --enable-test-discovery --sanitize=thread --enable-code-coverage | xcbeautify
+    - name: Run tests
+      run: swift test -v
+#    - run: xcrun swift test --enable-test-discovery --sanitize=thread
     - name: Codecov
-      run: |
-        llvm-cov export -format="lcov" .build/debug/TypedNotificationCenterPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
-        bash <(curl -s https://codecov.io/bash) -J 'TypedNotificationCenter' -n 'linux' -F 'linux'
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    uses: codecov/codecov-action@v1.0.7
+    with:
+      token: ${{ secrets.CODECOV_TOKEN }}# optional
+      fail_ci_if_error: true# optional
   vapor_xenial:
     container:
       image: vapor/swift:5.2-xenial
