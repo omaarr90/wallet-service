@@ -17,4 +17,7 @@
     <a href="https://swift.org">
         <img src="http://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 5.1">
     </a>
-</p>
+</p>  
+
+![Swift-Macos](https://github.com/one-wallet/wallet-service/workflows/Swift-Macos/badge.svg)  
+![Swift-Linux](https://github.com/one-wallet/wallet-service/workflows/Swift-Linux/badge.svg)  
