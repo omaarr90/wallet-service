@@ -5,22 +5,25 @@ on:
     branches: [ develop ]
 
 jobs:
-  build:
-
-    runs-on: ubuntu18.04
-
+  test-linux:
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install Swift on Linux
-      uses: sersoft-gmbh/SwiftyActions@v1.0.2
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Swift
+      uses: YOCKOW/Action-setup-swift@master
+    - name: Install xcbeautify
+      uses: Cyberbeni/install-swift-tool@v1
       with:
-        # The (released) Swift version (e.g. 5.2.1) to install. If given, `branch-name` and `version-tag` are ignored.
-        release-version: 5.2.4
-        # The branch of the Swift version to install (e.g. swift-5.2.1-release). Required if `release-version` is not set!
-        platform: ubuntu18.04# optional, default is ubuntu18.04
-        # Whether or not the installation of dependencies (via apt) should be skipped.
-        skip-apt: # optional
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+        url: https://github.com/Cyberbeni/xcbeautify
+        branch: linux-fixes
+    - name: Test
+      run: |
+        set -o pipefail
+        swift test --enable-code-coverage | xcbeautify
+    - name: Codecov
+      run: |
+        llvm-cov export -format="lcov" .build/debug/TypedNotificationCenterPackageTests.xctest -instr-profile .build/debug/codecov/default.profdata > info.lcov
+        bash <(curl -s https://codecov.io/bash) -J 'TypedNotificationCenter' -n 'linux' -F 'linux'
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
