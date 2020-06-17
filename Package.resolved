@@ -29,12 +29,66 @@
         }
       },
       {
+        "package": "fluent",
+        "repositoryURL": "https://github.com/vapor/fluent.git",
+        "state": {
+          "branch": null,
+          "revision": "e681c93df3201a2d8ceef15e8a9a0634578df233",
+          "version": "4.0.0"
+        }
+      },
+      {
+        "package": "fluent-kit",
+        "repositoryURL": "https://github.com/vapor/fluent-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "7396d1ac4fa7d510b1c280351e98b8192a4ec34b",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "fluent-sqlite-driver",
+        "repositoryURL": "https://github.com/vapor/fluent-sqlite-driver.git",
+        "state": {
+          "branch": null,
+          "revision": "a9f4313e78f68b41c91d8057ee8269c9beb1e4d5",
+          "version": "4.0.0-rc.2"
+        }
+      },
+      {
         "package": "routing-kit",
         "repositoryURL": "https://github.com/vapor/routing-kit.git",
         "state": {
           "branch": null,
           "revision": "e7f2d5bd36dc65a9edb303541cb678515a7fece3",
           "version": "4.1.0"
+        }
+      },
+      {
+        "package": "sql-kit",
+        "repositoryURL": "https://github.com/vapor/sql-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "3800a6f5fe5cb781420ebe059ff93392bc67cb9c",
+          "version": "3.1.0"
+        }
+      },
+      {
+        "package": "sqlite-kit",
+        "repositoryURL": "https://github.com/vapor/sqlite-kit.git",
+        "state": {
+          "branch": null,
+          "revision": "9259e3948dbc4f8e6a1e761423483e10931c03c9",
+          "version": "4.0.0-rc.1.1"
+        }
+      },
+      {
+        "package": "sqlite-nio",
+        "repositoryURL": "https://github.com/vapor/sqlite-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "af884d7f01f4dd93b2844c1f0dd2bf0fd24f04d3",
+          "version": "1.0.0-rc.1.1"
         }
       },
       {

@@ -14,8 +14,8 @@ func routes(_ app: Application) throws {
         return "Hello, world!"
     }
     
-    let userRepo = UserRepositoryMock()
+    let userRepo = FluentUserRepo(database: app.db)
     let registerUseCase = RegisterByPhoneUseCaseImpl(repo: userRepo)
-    let authController = AuthControllerImp(repo: UserRepositoryMock(), registerUseCase: registerUseCase)
+    let authController = AuthControllerImp(registerUseCase: registerUseCase)
     app.post("register", use: authController.register)
 }

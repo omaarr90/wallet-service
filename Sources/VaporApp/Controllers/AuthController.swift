@@ -13,10 +13,8 @@ struct AuthControllerImp: AuthController {
         let fullname: String
     }
     
-    private let userRepo: UserRepository
     private let registerUseCase: RegisterByPhoneUseCaseImpl
-    init(repo: UserRepository, registerUseCase: RegisterByPhoneUseCaseImpl) {
-        self.userRepo = repo
+    init(registerUseCase: RegisterByPhoneUseCaseImpl) {
         self.registerUseCase = registerUseCase
     }
     
