@@ -10,10 +10,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install Swift requied dep util for ubuntu-20.04
-      run: apt-get install binutils git gnupg2 libc6-dev libcurl4 libedit2 libgcc-9-dev libpython2.7 libsqlite3-0 libstdc++-9-dev libxml2 libz3-dev pkg-config tzdata zlib1g-dev
-    - name: Display
-      run: swift --version
+    - name: Setup Swift
+      uses: fwal/setup-swift@v1.0.1
+      with:
+        # Swift version to configure
+        swift-version: '5.2.4' # default is 5.2.2
     - name: Install xcbeautify
       uses: Cyberbeni/install-swift-tool@v1
       with:
