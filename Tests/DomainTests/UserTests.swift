@@ -1,4 +1,4 @@
-import Entities
+import Domain
 import XCTest
 
 final class UserTests: XCTestCase {

@@ -7,13 +7,13 @@
 
 import Foundation
 
-
-struct LoginUseCase: UseCase {
-    struct LoginInput: UseCaseInput {
+struct LoginUseCase {
+    
+    struct LoginInput {
         //
     }
     
-    struct LoginOutput: UseCaseOutput {
+    struct LoginOutput {
         let success: Bool
     }
     
@@ -21,9 +21,8 @@ struct LoginUseCase: UseCase {
     
     typealias Output = LoginOutput
     
-        
-    func execute(input: Input) -> Output {
-        return Output(success: true)
+    func execute(input: Input, completion: @escaping (Result<Output, Error>) -> Void) {
+        completion(.success(LoginOutput(success: true)))        
     }
-
+    
 }

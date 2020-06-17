@@ -1,14 +1,12 @@
 import XCTest
-@testable import UseCases
+@testable import Application
 
 final class LoginUseCaseTests: XCTestCase {
     
     func testLoginWithValidCredintial() {
         let useCase = LoginUseCase()
         let loginInput = LoginUseCase.LoginInput()
-        
-        let loginOutput = useCase.execute(input: loginInput)
-        XCTAssertTrue(loginOutput.success)
+        XCTFail("Not Implemented")
     }
 
     static let allTests = [
