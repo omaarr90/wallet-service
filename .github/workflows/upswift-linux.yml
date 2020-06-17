@@ -1,4 +1,4 @@
-name: Swift
+name: Swift-Linux
 
 on:
   pull_request:
