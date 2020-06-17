@@ -6,11 +6,11 @@ on:
 
 jobs:
   test-linux:
-    runs-on: ubuntu20.04
+    runs-on: ubuntu-20.04
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Install Swift requied dep util for ubuntu20.04
+    - name: Install Swift requied dep util for ubuntu-20.04
       run: apt-get install binutils git gnupg2 libc6-dev libcurl4 libedit2 libgcc-9-dev libpython2.7 libsqlite3-0 libstdc++-9-dev libxml2 libz3-dev pkg-config tzdata zlib1g-dev
     - name: Display
       run: swift --version
