@@ -1,17 +1,16 @@
-name: Swift-Macos
+name: Swift-Docker
 
 on:
   pull_request:
     branches: [ develop ]
 
+
 jobs:
   build:
-
-    runs-on: macos-latest
-
+    runs-on: vapor/swift:5.2
     steps:
     - uses: actions/checkout@v2
     - name: Build
-      run: swift build -v
+      run: swift build -v --enable-test-discovery -c release -Xswiftc -g
     - name: Run tests
       run: swift test -v
