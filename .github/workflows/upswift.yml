@@ -12,6 +12,8 @@ jobs:
       uses: actions/checkout@v2
     - name: Install Swift
       uses: YOCKOW/Action-setup-swift@master
+      with:
+        swift-version: '5.2.4' # This value is passed to swiftenv without modification. 
     - name: Install xcbeautify
       uses: Cyberbeni/install-swift-tool@v1
       with:
