@@ -15,7 +15,7 @@ jobs:
       uses: sersoft-gmbh/SwiftyActions@v1.0.2
       with:
         # The (released) Swift version (e.g. 5.2.1) to install. If given, `branch-name` and `version-tag` are ignored.
-        release-version: 5.2
+        release-version: 5.2.4
         # The branch of the Swift version to install (e.g. swift-5.2.1-release). Required if `release-version` is not set!
         platform: ubuntu20.04# optional, default is ubuntu18.04
         # Whether or not the installation of dependencies (via apt) should be skipped.
