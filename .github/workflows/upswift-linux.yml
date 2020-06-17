@@ -20,6 +20,8 @@ jobs:
       with:
         url: https://github.com/Cyberbeni/xcbeautify
         branch: linux-fixes
+    - name: build
+      run: swift build -v
     - name: Test
       run: |
         set -o pipefail
