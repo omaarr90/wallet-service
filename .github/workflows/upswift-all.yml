@@ -22,15 +22,20 @@ jobs:
         #token: ${{ secrets.CODECOV_TOKEN }}# optional
         file: ./.build/x86_64-apple-macosx/debug/codecov/wallet-service.json
         fail_ci_if_error: true# optional
-#  vapor_xenial:
-#    container:
-#      image: vapor/swift:5.2-xenial
-#    runs-on: ubuntu-latest
-#    steps:
-#    - uses: actions/checkout@v2
-#    - name: Install sqlite3
-#      run: apt-get update && apt-get install -y sqlite3
-#    - run: swift test --enable-test-discovery --sanitize=thread
+  vapor_xenial:
+    runs-on: ubuntu-latest
+    container:
+     image: vapor/swift:5.2-xenial
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: install libsqlite3-dev
+      run: apt-get update && apt-get install -y libsqlite3-dev
+    - name: Install sqlite3
+      run: apt-get update && apt-get install -y sqlite3
+    - name: Run Tests
+      run: make test
   vapor_bionic:
     runs-on: ubuntu-latest
     container:
