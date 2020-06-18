@@ -34,6 +34,7 @@ final class RegesterUseCaseTests: XCTestCase {
         case let .success(output):
             XCTAssertTrue(output.fullname == input.fullname)
             XCTAssertTrue(output.phoneNumber == input.phoneNumber)
+            XCTAssertFalse(output.isVerified)
             XCTAssertNotNil(output.username)
 
         }
