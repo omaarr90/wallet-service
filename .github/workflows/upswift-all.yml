@@ -1,0 +1,50 @@
+name: test
+on:
+  pull_request:
+    branches: [ develop ]
+    
+    
+jobs:
+  vapor_macos:
+    runs-on: macos-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_11.4_beta.app/Contents/Developer
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build app
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v --enable-code-coverage --enable-test-discovery --sanitize=thread
+#    - run: xcrun swift test --enable-test-discovery --sanitize=thread
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.7
+      with:
+        #token: ${{ secrets.CODECOV_TOKEN }}# optional
+        file: ./.build/x86_64-apple-macosx/debug/codecov/wallet-service.json
+        fail_ci_if_error: true# optional
+  vapor_xenial:
+    runs-on: ubuntu-latest
+    container:
+     image: vapor/swift:5.2-xenial
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: install libsqlite3-dev
+      run: apt-get update && apt-get install -y libsqlite3-dev
+    - name: Install sqlite3
+      run: apt-get update && apt-get install -y sqlite3
+    - name: Run Tests
+      run: make test
+  vapor_bionic:
+    runs-on: ubuntu-latest
+    container:
+     image: vapor/swift:5.2-bionic
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: install libsqlite3-dev
+      run: apt-get update && apt-get install -y libsqlite3-dev
+    - name: Install sqlite3
+      run: apt-get update && apt-get install -y sqlite3
+    - name: Run Tests
+      run: make test
