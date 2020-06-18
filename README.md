@@ -19,5 +19,4 @@
     </a>
 </p>  
 
-![Swift-Macos](https://github.com/one-wallet/wallet-service/workflows/Swift-Macos/badge.svg)  
-![Swift-Linux](https://github.com/one-wallet/wallet-service/workflows/Swift-Linux/badge.svg)  
+![test](https://github.com/one-wallet/wallet-service/workflows/test/badge.svg)
