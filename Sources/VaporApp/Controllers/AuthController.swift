@@ -20,7 +20,6 @@ struct AuthControllerImp: AuthController {
     
     func register(_ req: Request) throws -> EventLoopFuture<Response> {
         let prmoise = req.eventLoop.makePromise(of: Response.self)
-        
         guard let content = try? req.content.decode(RegisterInput.self) else {
             prmoise.succeed(Response(status: .badRequest))
             return prmoise.futureResult
@@ -30,8 +29,9 @@ struct AuthControllerImp: AuthController {
         
         registerUseCase.execute(input: input) { result in
             switch result {
-            case let .failure(error):
-                prmoise.fail(error)
+            case let .failure(_):
+                prmoise.succeed(Response(status: .badRequest))
+//                prmoise.fail(error)
             case .success(_):
                 let response = Response(status: .created)
                 prmoise.succeed(response)

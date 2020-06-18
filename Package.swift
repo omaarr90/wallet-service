@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "wallet-service",
     platforms: [
-       .macOS(.v10_15)
+        .macOS(.v10_15)
     ],
     products: [
         .library(name: "wallet-service", targets: ["VaporApp"]),
@@ -12,16 +12,16 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-
-
+        
+        
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
-
+        
         // 🔵 Swift ORM (queries, models, relations, etc) built on SQLite 3.
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc.2"),
         
         
         // Lightweight full-featured Promises, Async & Await Library in Swift.
-//        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
+        //        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
     ],
     targets: [
         .target(name: "Domain"),
@@ -29,7 +29,7 @@ let package = Package(
         .target(name: "Application",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),
-//                               .product(name: "Hydra", package: "Hydra")
+                               //                               .product(name: "Hydra", package: "Hydra")
         ]),
         .target(name: "Repository",
                 dependencies: [.target(name: "Domain"),
@@ -59,7 +59,8 @@ let package = Package(
         .testTarget(name: "RepositoryTests",
                     dependencies: [.target(name: "Repository")]),
         .testTarget(name: "VaporAppTests",
-                    dependencies: [.target(name: "VaporApp")])
+                    dependencies: [.target(name: "VaporApp"),
+                                   .product(name: "XCTVapor", package: "vapor")])
     ]
 )
 

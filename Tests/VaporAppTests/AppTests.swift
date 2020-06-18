@@ -1,7 +1,7 @@
-import VaporApp
-import XCTest
+@testable import VaporApp
+import XCTVapor
 
-final class AppTests: XCTestCase {
+final class AppTests: AppTestCase {
     func testNothing() throws {
         // Add your tests here
         XCTAssert(true)
