@@ -15,16 +15,12 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v --enable-code-coverage --enable-test-discovery --sanitize=thread
-    - name: print working dir
-      run: pwd
-    - name: show codecov path
-      run: swift test --show-codecov-path
 #    - run: xcrun swift test --enable-test-discovery --sanitize=thread
     - name: Codecov
       uses: codecov/codecov-action@v1.0.7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}# optional
-        file: /Users/runner/runners/2.169.1/work/wallet-service/wallet-service/.build/x86_64-apple-macosx/debug/codecov/wallet-service.json
+        file: ./.build/x86_64-apple-macosx/debug/codecov/wallet-service.json
         fail_ci_if_error: true# optional
   vapor_xenial:
     container:
