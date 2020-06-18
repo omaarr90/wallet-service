@@ -29,7 +29,7 @@ struct AuthControllerImp: AuthController {
         
         registerUseCase.execute(input: input) { result in
             switch result {
-            case let .failure(_):
+            case .failure(_):
                 prmoise.succeed(Response(status: .badRequest))
 //                prmoise.fail(error)
             case .success(_):
