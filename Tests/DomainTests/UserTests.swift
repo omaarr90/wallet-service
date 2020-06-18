@@ -1,5 +1,5 @@
 import XCTest
-@testable import Application
+@testable import Domain
 
 final class UserTests: XCTestCase {
     
