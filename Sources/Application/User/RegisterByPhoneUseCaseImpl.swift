@@ -43,7 +43,7 @@ public struct RegisterByPhoneUseCaseImpl: RegisterUseCase {
                 } else {
                     let username = String.generateRanomUsername(from: input.fullname)
                     
-                    let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber)
+                    let user = User(fullname: input.fullname, username: username, phoneNumber: input.phoneNumber, isVerified: false)
                     
                     self.repo.save(user: user) { result in
                         completion(result)

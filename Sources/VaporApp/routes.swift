@@ -13,8 +13,8 @@ func routes(_ app: Application) throws {
     app.get("hello") { req in
         return "Hello, world!"
     }
-    
-    let userRepo = FluentUserRepo(database: app.db)
+    let diProvider = DependencyInjectionProvider(app: app)
+    let userRepo = diProvider.userRepo
     let registerUseCase = RegisterByPhoneUseCaseImpl(repo: userRepo)
     let authController = AuthControllerImp(registerUseCase: registerUseCase)
     app.post("register", use: authController.register)

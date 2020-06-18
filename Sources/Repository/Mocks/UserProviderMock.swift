@@ -18,10 +18,10 @@ public class UserRepositoryMock: UserRepository {
     private var users = [
         User(fullname: "Omar Alshammari",
              username: "omar_123456",
-             phoneNumber: 966542652273),
+             phoneNumber: 966542652273, isVerified: true),
         User(fullname: "Bander Alshammari",
              username: "bannder_123456",
-             phoneNumber: 966542652274)
+             phoneNumber: 966542652274, isVerified: true)
 
     ]
     

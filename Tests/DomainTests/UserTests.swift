@@ -1,14 +1,13 @@
-import Domain
 import XCTest
+@testable import Domain
 
 final class UserTests: XCTestCase {
-    func testNothing() throws {
-        // Add your tests here
-        XCTAssert(true)
+    
+    func testNothing() {
+        XCTAssertTrue(true)
     }
 
     static let allTests = [
         ("testNothing", testNothing)
     ]
 }
-
