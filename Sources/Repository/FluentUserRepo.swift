@@ -61,7 +61,7 @@ public class FluentUserRepo: UserRepository {
     
     public func saveUserPassword(phoneNumber: Int64,
                                  password: String,
-                                 completion: @escaping (Result<Void, Error>) -> Void) {        
+                                 completion: @escaping (Result<Void, Error>) -> Void) {
         UserModel.query(on: self.database)
             .filter(\.$phoneNumber == phoneNumber)
             .first()
