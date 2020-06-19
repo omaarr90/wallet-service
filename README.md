@@ -20,3 +20,20 @@
 </p>  
 
 ![test](https://github.com/one-wallet/wallet-service/workflows/test/badge.svg)
+
+## Run Docker Image:  
+
+### Build Image:  
+```docker build --file web.Dockerfile -t wallet-service-swift-app . ```  
+
+### List Images:  
+```docker images```  
+
+### Copy the image Id. To run the container, we write on the terminal, map port 3000 of the machine to port 80 of the container port of:  
+```docker run -p 3000:80 {image-id}```  
+
+### List Docker Container:  
+```docker container ls```
+
+### Stop Docker Container:  
+```docker stop {container-id}```  
