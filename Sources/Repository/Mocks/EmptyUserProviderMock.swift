@@ -5,7 +5,6 @@ import Application
 
 public class EmptyUserRepositoryMock: UserRepository {
     
-    
     private var users: [User] = []
 
     public init() {}
@@ -18,5 +17,10 @@ public class EmptyUserRepositoryMock: UserRepository {
         self.users.append(user)
         completion(.success(user))
     }
+    
+    public func findUser(by phoneNumber: Int64, completion: @escaping (Result<User, Error>) -> Void) {
+        completion(.failure(RepositoryError.notFound))
+    }
+
 }
 

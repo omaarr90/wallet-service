@@ -33,4 +33,14 @@ public class UserRepositoryMock: UserRepository {
         self.users.append(user)
         completion(.success(user))
     }
+    
+    public func findUser(by phoneNumber: Int64, completion: @escaping (Result<User, Error>) -> Void) {
+        self.users.forEach { user in
+            if user.phoneNumber == phoneNumber {
+                completion(.success(user))
+                return
+            }
+        }
+        completion(.failure(RepositoryError.notFound))
+    }
 }

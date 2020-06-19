@@ -33,7 +33,20 @@ public struct RegisterUseCaseInput {
     }
 }
 
+public struct CreatePasswordUseCaseInput {
+    public let password: String
+    public let phoneNumber: Int64
+    
+    public init(password: String, phoneNumber: Int64) {
+        self.password = password
+        self.phoneNumber = phoneNumber
+    }
+}
 
 public protocol RegisterUseCase {
     func execute(input: RegisterUseCaseInput, completion: @escaping (Result<User, Error>) -> Void)
+}
+
+public protocol CreatePasswordUseCase {
+    func execute(input: CreatePasswordUseCaseInput, completion: @escaping (Result<User, Error>) -> Void)
 }
