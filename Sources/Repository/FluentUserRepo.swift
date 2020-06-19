@@ -26,7 +26,8 @@ public class FluentUserRepo: UserRepository {
         }
     }
     
-    public func save(user: User, completion: @escaping (Result<User, Error>) -> Void) {
+    public func save(user: User,
+                     completion: @escaping (Result<User, Error>) -> Void) {
         let userModel = UserModel(id: nil, fullname: user.fullname, username: user.username, phoneNumber: user.phoneNumber, isVerified: user.isVerified)
         userModel.save(on: database).whenComplete { result in
             switch result {
@@ -38,7 +39,8 @@ public class FluentUserRepo: UserRepository {
         }
     }
     
-    public func findUser(by phoneNumber: Int64, completion: @escaping (Result<User, Error>) -> Void) {
+    public func findUser(by phoneNumber: Int64,
+                         completion: @escaping (Result<User, Error>) -> Void) {
         UserModel.query(on: self.database)
             .filter(\.$phoneNumber == phoneNumber)
             .first()
@@ -57,5 +59,24 @@ public class FluentUserRepo: UserRepository {
         }
     }
     
-    
+    public func saveUserPassword(phoneNumber: Int64,
+                                 password: String,
+                                 completion: @escaping (Result<Void, Error>) -> Void) {
+        //        UserModel.find(UUID(), on: self.database)
+        //            .unwrap(or: RepositoryError.notFound)
+        //            .whenComplete { result in
+        //                //
+        //        }
+        
+        UserModel.query(on: self.database)
+            .filter(\.$phoneNumber == phoneNumber)
+            .first()
+            .unwrap(or: RepositoryError.notFound)
+            .flatMap { userModel -> EventLoopFuture<Void> in
+                userModel.password = password
+                return userModel.update(on: self.database)
+        }
+        .whenComplete(completion)
+    }
 }
+

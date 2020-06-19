@@ -22,5 +22,10 @@ public class EmptyUserRepositoryMock: UserRepository {
         completion(.failure(RepositoryError.notFound))
     }
 
+    public func saveUserPassword(phoneNumber: Int64,
+                                 password: String,
+                                 completion: @escaping (Result<Void, Error>) -> Void) {
+        completion(.failure(RepositoryError.notFound))
+    }
 }
 

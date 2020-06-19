@@ -20,13 +20,17 @@ final class UserModel: Model {
     @Field(key: "is_verified")
     var isVerified: Bool
 
+    @Field(key: "password")
+    var password: String?
+
     init() {}
 
-    init(id: UUID?, fullname: String, username: String, phoneNumber: Int64, isVerified: Bool) {
+    init(id: UUID?, fullname: String, username: String, phoneNumber: Int64, isVerified: Bool, password: String? = nil) {
         self.id = id
         self.fullname = fullname
         self.username = username
         self.phoneNumber = phoneNumber
         self.isVerified = isVerified
+        self.password = password
     }
 }

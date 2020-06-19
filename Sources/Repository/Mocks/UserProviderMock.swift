@@ -43,4 +43,19 @@ public class UserRepositoryMock: UserRepository {
         }
         completion(.failure(RepositoryError.notFound))
     }
+    
+    public func saveUserPassword(phoneNumber: Int64,
+                                 password: String,
+                                 completion: @escaping (Result<Void, Error>) -> Void) {
+        self.users.enumerated().forEach { index, user in
+            if user.phoneNumber == phoneNumber {
+                self.users.remove(at: index)
+                let newUser = User(fullname: user.fullname, username: user.username, phoneNumber: user.phoneNumber, isVerified: user.isVerified, password: user.password)
+                self.users.append(newUser)
+                completion(.success(()))
+                return
+            }
+        }
+        completion(.failure(RepositoryError.notFound))
+    }
 }
