@@ -1,6 +1,6 @@
 name: Deploy To Aws Dev Cluster
 on:
-  merge:
+  push:
     branches: [ develop ]
     
     
