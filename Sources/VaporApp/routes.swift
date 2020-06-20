@@ -2,6 +2,7 @@ import Vapor
 import Application
 import Repository
 
+private var appControllers: [WalletController] = []
 /// Register your application's routes here.
 func routes(_ app: Application) throws {
     // Basic "It works" example
@@ -16,6 +17,8 @@ func routes(_ app: Application) throws {
     let diProvider = DependencyInjectionProvider(app: app)
     let userRepo = diProvider.userRepo
     let registerUseCase = RegisterByPhoneUseCaseImpl(repo: userRepo)
-    let authController = AuthControllerImp(registerUseCase: registerUseCase)
-    app.post("register", use: authController.register)
+    let createPasswordUseCase = CreatePasswordUseCaseImpl(repo: userRepo)
+    appControllers.append(contentsOf: [
+        AuthController(registerUseCase: registerUseCase, createPasswordUseCase: createPasswordUseCase, app: app)
+    ])
 }

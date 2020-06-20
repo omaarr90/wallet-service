@@ -1,20 +1,20 @@
 //
-//  RegisterationTests.swift
-//  VaporAppTests
+//  File.swift
+//  
 //
-//  Created by عمر سعيد الشمري on 18/06/2020.
+//  Created by عمر سعيد الشمري on 20/06/2020.
 //
 
 @testable import VaporApp
 import XCTVapor
 
-final class RegisterationTests: AppTestCase {
+final class CreatePasswordTests: AppTestCase {
 
-    func testRegisteringNewUser() throws {
+    func testCreatePasswordForNewUser() throws {
         // Add your tests here
         let expectation = self.expectation(description: "Registering")
         var expectedResponse: XCTHTTPResponse?
-        try app.test(.POST, "users", headers: headers, body: validUserBody) {
+        try app.test(.POST, "users/password", headers: headers, body: validCreatePasswordBody) {
             expectedResponse = $0
             expectation.fulfill()
         }
@@ -25,12 +25,27 @@ final class RegisterationTests: AppTestCase {
         }
         XCTAssertTrue(response.status == .created)
     }
-
-    func testRegisteringDuplicateUser() throws {
+    
+    func testCreatePasswordForExistingUser() throws {
+        let expectation = self.expectation(description: "Registering")
+        var expectedResponse: XCTHTTPResponse?
+        try app.test(.POST, "users/password", headers: headers, body: duplicateCreatePasswordBody) {
+            expectedResponse = $0
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 5, handler: nil)
+        guard let response = expectedResponse else {
+            XCTFail("expected response was nil")
+            return
+        }
+        XCTAssertTrue(response.status == .badRequest)
+    }
+    
+    func testCreatePasswordWithInvalidMobileNumber() throws {
         // Add your tests here
         let expectation = self.expectation(description: "Registering")
         var expectedResponse: XCTHTTPResponse?
-        try app.test(.POST, "users", headers: headers, body: duplicateUserBody) {
+        try app.test(.POST, "users/password", headers: headers, body: invalidMobileCreateUserBody) {
             expectedResponse = $0
             expectation.fulfill()
         }
@@ -42,11 +57,11 @@ final class RegisterationTests: AppTestCase {
         XCTAssertTrue(response.status == .badRequest)
     }
 
-    func testRegisteringUserWithInvalidMobileNumber() throws {
+    func testCreatePasswordWithEmptyPassword() throws {
         // Add your tests here
         let expectation = self.expectation(description: "Registering")
         var expectedResponse: XCTHTTPResponse?
-        try app.test(.POST, "users", headers: headers, body: invalidMobileUserBody) {
+        try app.test(.POST, "users/password", headers: headers, body: emptyPasswordBody) {
             expectedResponse = $0
             expectation.fulfill()
         }
@@ -58,11 +73,11 @@ final class RegisterationTests: AppTestCase {
         XCTAssertTrue(response.status == .badRequest)
     }
 
-    func testRegisteringUserWithEmptyFullname() throws {
+    func testCreatePasswordWithInvalidJson() throws {
         // Add your tests here
         let expectation = self.expectation(description: "Registering")
         var expectedResponse: XCTHTTPResponse?
-        try app.test(.POST, "users", headers: headers, body: emptyFullnameUserBody) {
+        try app.test(.POST, "users/password", headers: headers, body: invalidJsonBody) {
             expectedResponse = $0
             expectation.fulfill()
         }
@@ -74,46 +89,20 @@ final class RegisterationTests: AppTestCase {
         XCTAssertTrue(response.status == .badRequest)
     }
 
-    func testRegisteringUserWithInvalidJson() throws {
-        // Add your tests here
-        let expectation = self.expectation(description: "Registering")
-        var expectedResponse: XCTHTTPResponse?
-        try app.test(.POST, "users", headers: headers, body: invalidJsonUserBody) {
-            expectedResponse = $0
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: 5, handler: nil)
-        guard let response = expectedResponse else {
-            XCTFail("expected response was nil")
-            return
-        }
-        XCTAssertTrue(response.status == .badRequest)
-    }
-
+    
     static let allTests = [
-        ("testRegisteringNewUser", testRegisteringNewUser),
-        ("testRegisteringDuplicateUser", testRegisteringDuplicateUser),
-        ("testRegisteringUserWithInvalidMobileNumber", testRegisteringUserWithInvalidMobileNumber),
-        ("testRegisteringUserWithEmptyFullname", testRegisteringUserWithEmptyFullname),
-        ("testRegisteringUserWithInvalidJson", testRegisteringUserWithInvalidJson)
+        ("testCreatePasswordForNewUser", testCreatePasswordForNewUser),
+        ("testCreatePasswordForExistingUser", testCreatePasswordForExistingUser),
+        ("testCreatePasswordWithInvalidMobileNumber", testCreatePasswordWithInvalidMobileNumber),
+        ("testCreatePasswordWithEmptyPassword", testCreatePasswordWithEmptyPassword),
+        ("testCreatePasswordWithInvalidJson", testCreatePasswordWithInvalidJson),
+
     ]
     
-    
-    private var validUserBody: ByteBuffer? {
+    private var validCreatePasswordBody: ByteBuffer? {
         let json = """
         {
-            "fullname": "Ahmed Alahmed",
-            "phoneNumber": 966542652255
-        }
-        """
-        let data = Data(json.utf8)
-        return ByteBuffer(data: data)
-    }
-
-    private var duplicateUserBody: ByteBuffer? {
-        let json = """
-        {
-            "fullname": "Omar Alshammari",
+            "password": "p@ssw0rd",
             "phoneNumber": 966542652273
         }
         """
@@ -121,7 +110,18 @@ final class RegisterationTests: AppTestCase {
         return ByteBuffer(data: data)
     }
 
-    private var invalidMobileUserBody: ByteBuffer? {
+    private var duplicateCreatePasswordBody: ByteBuffer? {
+        let json = """
+        {
+            "password": "p@ssw0rd",
+            "phoneNumber": 966542652274
+        }
+        """
+        let data = Data(json.utf8)
+        return ByteBuffer(data: data)
+    }
+
+    private var invalidMobileCreateUserBody: ByteBuffer? {
         let json = """
         {
             "fullname": "Omar Alshammari",
@@ -132,7 +132,7 @@ final class RegisterationTests: AppTestCase {
         return ByteBuffer(data: data)
     }
 
-    private var emptyFullnameUserBody: ByteBuffer? {
+    private var emptyPasswordBody: ByteBuffer? {
         let json = """
         {
             "fullname": "",
@@ -143,7 +143,7 @@ final class RegisterationTests: AppTestCase {
         return ByteBuffer(data: data)
     }
     
-    private var invalidJsonUserBody: ByteBuffer? {
+    private var invalidJsonBody: ByteBuffer? {
         let json = """
         {
         }
