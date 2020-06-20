@@ -8,7 +8,18 @@
 import Foundation
 import Domain
 
+public enum RepositoryError: Error {
+    case notFound
+    case userAlreadyHasPassword
+}
+
 public protocol UserRepository {
     func allUsers(completion: @escaping (Result<[User], Error>) -> Void)
-    func save(user: Domain.User, completion: @escaping (Result<User, Error>) -> Void)
+    func save(user: Domain.User,
+              completion: @escaping (Result<User, Error>) -> Void)
+    func findUser(by phoneNumber: Int64,
+                  completion: @escaping (Result<User, Error>) -> Void)
+    func saveUserPassword(phoneNumber: Int64,
+                          password: String,
+                          completion: @escaping (Result<Void, Error>) -> Void)
 }

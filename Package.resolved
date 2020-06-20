@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/vapor/fluent-kit.git",
         "state": {
           "branch": null,
-          "revision": "7396d1ac4fa7d510b1c280351e98b8192a4ec34b",
-          "version": "1.0.0"
+          "revision": "8ac0bc2764d3c93e5a30e7799492ea518afd9cc0",
+          "version": "1.0.1"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/vapor/sql-kit.git",
         "state": {
           "branch": null,
-          "revision": "3800a6f5fe5cb781420ebe059ff93392bc67cb9c",
-          "version": "3.1.0"
+          "revision": "de3521641f659917b4a536e7fa13b213aa043d6b",
+          "version": "3.2.0"
         }
       },
       {

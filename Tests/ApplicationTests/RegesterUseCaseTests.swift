@@ -20,15 +20,18 @@ final class RegesterUseCaseTests: XCTestCase {
         let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 966542652273)
         let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
         let expectation = self.expectation(description: "Scaling")
-        var result: Result<User, Error>?
+        var expectedResult: Result<User, Error>?
         useCase.execute(input: input) {
-            result = $0
+            expectedResult = $0
             expectation.fulfill()
         }
         
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(result)
-        switch result! {
+        guard let result = expectedResult else {
+            XCTFail("result was nil")
+            return
+        }
+        switch result {
         case let .failure(error):
             XCTFail(error.localizedDescription)
         case let .success(output):
@@ -44,15 +47,18 @@ final class RegesterUseCaseTests: XCTestCase {
         let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 966542652273)
         let useCase = RegisterByPhoneUseCaseImpl(repo: userProviderMock)
         let expectation = self.expectation(description: "Registering")
-        var result: Result<User, Error>?
+        var expectedResult: Result<User, Error>?
         useCase.execute(input: input) {
-            result = $0
+            expectedResult = $0
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(result)
-        switch result! {
+        guard let result = expectedResult else {
+            XCTFail("result was nil")
+            return
+        }
+        switch result {
         case .failure:
             XCTAssert(true)
         case .success:
@@ -64,15 +70,18 @@ final class RegesterUseCaseTests: XCTestCase {
         let input = RegisterUseCaseInput(fullname: "Omar Alshammari", phoneNumber: 9665426522)
         let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
         let expectation = self.expectation(description: "Registering")
-        var result: Result<User, Error>?
+        var expectedResult: Result<User, Error>?
         useCase.execute(input: input) {
-            result = $0
+            expectedResult = $0
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(result)
-        switch result! {
+        guard let result = expectedResult else {
+            XCTFail("result was nil")
+            return
+        }
+        switch result {
         case .failure:
             XCTAssert(true)
         case .success:
@@ -84,15 +93,18 @@ final class RegesterUseCaseTests: XCTestCase {
         let input = RegisterUseCaseInput(fullname: "", phoneNumber: 966542652273)
         let useCase = RegisterByPhoneUseCaseImpl(repo: emptyUserProviderMock)
         let expectation = self.expectation(description: "Registering")
-        var result: Result<User, Error>?
+        var expectedResult: Result<User, Error>?
         useCase.execute(input: input) {
-            result = $0
+            expectedResult = $0
             expectation.fulfill()
         }
-        
+
         waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertNotNil(result)
-        switch result! {
+        guard let result = expectedResult else {
+            XCTFail("result was nil")
+            return
+        }
+        switch result {
         case .failure:
             XCTAssert(true)
         case .success:
