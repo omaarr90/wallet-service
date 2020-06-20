@@ -1,14 +1,12 @@
 name: Deploy To Aws Dev Cluster
 on:
-  push:
+  pull_request:
     branches: [ develop ]
     
     
 jobs:
   vapor_bionic:
     runs-on: ubuntu-18.04
-    container:
-     image: vapor/swift:5.2-bionic
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
