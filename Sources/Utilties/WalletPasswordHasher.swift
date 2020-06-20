@@ -6,14 +6,18 @@
 //
 
 import Foundation
+import Vapor
 
-final class WalletPasswordHasher {
+public final class WalletPasswordHasher {
     
-    static func hash(password: String) -> String {
-        return password
+    public static func hash(password: String) -> String? {
+        return try? Vapor.Bcrypt.hash(password)
     }
     
-    static func verify(password: String, hash: String) -> Bool {
-        return password == hash
+    public static func verify(password: String, hash: String) -> Bool {
+        guard let result = try? Vapor.Bcrypt.verify(password, created: hash) else {
+            return false
+        }
+        return result
     }
 }

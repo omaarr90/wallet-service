@@ -48,5 +48,5 @@ public protocol RegisterUseCase {
 }
 
 public protocol CreatePasswordUseCase {
-    func execute(input: CreatePasswordUseCaseInput, completion: @escaping (Result<User, Error>) -> Void)
+    func execute(input: CreatePasswordUseCaseInput, completion: @escaping (Result<Bool, Error>) -> Void)
 }

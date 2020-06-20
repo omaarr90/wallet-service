@@ -18,10 +18,14 @@ public class UserRepositoryMock: UserRepository {
     private var users = [
         User(fullname: "Omar Alshammari",
              username: "omar_123456",
-             phoneNumber: 966542652273, isVerified: true),
+             phoneNumber: 966542652273,
+             isVerified: true,
+             password: nil),
         User(fullname: "Bander Alshammari",
              username: "bannder_123456",
-             phoneNumber: 966542652274, isVerified: true)
+             phoneNumber: 966542652274,
+             isVerified: true,
+             password: "p@ssw0rd")
 
     ]
     
@@ -47,15 +51,25 @@ public class UserRepositoryMock: UserRepository {
     public func saveUserPassword(phoneNumber: Int64,
                                  password: String,
                                  completion: @escaping (Result<Void, Error>) -> Void) {
+        var found = false
+        var error: Error = RepositoryError.notFound
         self.users.enumerated().forEach { index, user in
             if user.phoneNumber == phoneNumber {
+                guard user.password == nil else {
+                    error = RepositoryError.userAlreadyHasPassword
+                    return
+                }
                 self.users.remove(at: index)
                 let newUser = User(fullname: user.fullname, username: user.username, phoneNumber: user.phoneNumber, isVerified: user.isVerified, password: user.password)
                 self.users.append(newUser)
-                completion(.success(()))
+                found = true
                 return
             }
         }
-        completion(.failure(RepositoryError.notFound))
+        if found {
+            completion(.success(()))
+        } else {
+            completion(.failure(error))
+        }
     }
 }

@@ -13,7 +13,8 @@ let package = Package(
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
         
-        
+
+        // 🔵 Swift ORM (queries, models, relations, etc)
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
         
         // 🔵 Swift ORM (queries, models, relations, etc) built on SQLite 3.
@@ -23,9 +24,13 @@ let package = Package(
         // Lightweight full-featured Promises, Async & Await Library in Swift.
         //        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
     ],
+    //product(name: "Crypto", package: "swift-crypto")
     targets: [
         .target(name: "Domain"),
-        .target(name: "Utilties"),
+        .target(name: "Utilties",
+                dependencies: [.product(name: "Vapor", package: "vapor"),
+        ]),
+
         .target(name: "Application",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),

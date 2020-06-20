@@ -10,6 +10,7 @@ import Domain
 
 public enum RepositoryError: Error {
     case notFound
+    case userAlreadyHasPassword
 }
 
 public protocol UserRepository {
