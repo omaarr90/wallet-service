@@ -43,7 +43,7 @@ jobs:
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition-dev }}
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: wallet-service-swift-app-service
         cluster: wallet-service-swift-app-dev-cluster
         wait-for-service-stability: true
