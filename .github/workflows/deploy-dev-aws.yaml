@@ -1,6 +1,6 @@
-name: Deploy To Aws Dev Cluster
+name: Deploy To Aws Dev Cluster In Bahrin
 on:
-  push:
+  pull_request:
     branches: [ develop ]
     
     
@@ -15,7 +15,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        aws-region: me-south-1
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -36,14 +36,14 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task-definition.json # output file (required)
+        task-definition: task-definition-dev.json # output file (required)
         container-name: wallet-service-swift-app
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
-        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        task-definition: ${{ steps.task-def.outputs.task-definition-dev }}
         service: wallet-service-swift-app-service
         cluster: wallet-service-swift-app-dev-cluster
         wait-for-service-stability: true
