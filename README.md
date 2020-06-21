@@ -125,4 +125,4 @@ Should output: >Login Succeeded
 
 ## Service Url:  
 Dev: http://ec2-3-81-115-213.compute-1.amazonaws.com/
-
+Bahrin dev: http://ec2-15-185-192-3.me-south-1.compute.amazonaws.com
