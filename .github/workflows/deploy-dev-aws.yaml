@@ -1,6 +1,6 @@
 name: Deploy To Aws Dev Cluster In Bahrin
 on:
-  pull_request:
+  push:
     branches: [ develop ]
     
     
