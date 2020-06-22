@@ -23,13 +23,12 @@
       "dnsServers": null,
       "mountPoints": [],
       "workingDirectory": null,
-      "secrets": null,
       "dockerSecurityOptions": null,
       "memory": null,
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "463141821594.dkr.ecr.us-east-1.amazonaws.com/wallet-service-swift-app:latest",
+      "image": "463141821594.dkr.ecr.me-south-1.amazonaws.com/wallet-service-swift-app",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -55,7 +54,7 @@
   "compatibilities": [
     "EC2"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:463141821594:task-definition/wallet-service-swift-app-task-def:3",
+  "taskDefinitionArn": "arn:aws:ecs:me-south-1:463141821594:task-definition/wallet-service-swift-app-task-def:1",
   "family": "wallet-service-swift-app-task-def",
   "requiresAttributes": [
     {
@@ -69,9 +68,9 @@
   "requiresCompatibilities": [
     "EC2"
   ],
-  "networkMode": null,
+  "networkMode": "bridge",
   "cpu": "512",
-  "revision": 3,
+  "revision": 1,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
