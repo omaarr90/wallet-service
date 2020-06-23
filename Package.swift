@@ -23,6 +23,8 @@ let package = Package(
         
         // Lightweight full-featured Promises, Async & Await Library in Swift.
         //        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
+        
+         .package(url: "https://github.com/lachlanbell/SwiftOTP.git", .upToNextMinor(from: "2.0.1"))
     ],
     //product(name: "Crypto", package: "swift-crypto")
     targets: [
@@ -34,6 +36,7 @@ let package = Package(
         .target(name: "Application",
                 dependencies: [.target(name: "Domain"),
                                .target(name: "Utilties"),
+                               .product(name: "SwiftOTP", package: "SwiftOTP")
                                //                               .product(name: "Hydra", package: "Hydra")
         ]),
         .target(name: "Repository",
