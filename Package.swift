@@ -12,22 +12,28 @@ let package = Package(
     dependencies: [
         // 💧 A server-side Swift web framework.
         .package(url: "https://github.com/vapor/vapor.git", from: "4.0.0"),
-        
+
 
         // 🔵 Swift ORM (queries, models, relations, etc)
         .package(url: "https://github.com/vapor/fluent.git", from: "4.0.0"),
-        
+
         // 🔵 Swift ORM (queries, models, relations, etc) built on SQLite 3.
         .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.0.0-rc.2"),
-        
-        
+
+
         // Lightweight full-featured Promises, Async & Await Library in Swift.
         //        .package(url: "https://github.com/malcommac/Hydra.git", from: "2.0.0")
-        
-         .package(url: "https://github.com/lachlanbell/SwiftOTP.git", .upToNextMinor(from: "2.0.1"))
+
+        .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "1.0.0"),
+        .package(url: "https://github.com/lachlanbell/SwiftOTP.git", from: "2.0.1")
+        // included by  SwiftOTP      .package(url: "https://github.com/norio-nomura/Base32.git", from: "0.8.0")
     ],
     //product(name: "Crypto", package: "swift-crypto")
     targets: [
+        .target(name: "Lib",
+                dependencies: [.product(name: "CryptoSwift", package: "CryptoSwift"), 
+                               .product(name: "SwiftOTP", package: "SwiftOTP"), 
+        ]),
         .target(name: "Domain"),
         .target(name: "Utilties",
                 dependencies: [.product(name: "Vapor", package: "vapor"),
@@ -55,8 +61,10 @@ let package = Package(
         .target(name: "Run",
                 dependencies: [.target(name: "VaporApp")
         ]),
-        
+
         // Tests
+        .testTarget(name: "LibTests",
+                dependencies: [.target(name: "Lib")]),
         .testTarget(name: "DomainTests",
                     dependencies: [.target(name: "Domain")]),
         .testTarget(name: "UtiltiesTests",
