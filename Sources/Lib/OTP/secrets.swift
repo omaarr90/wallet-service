@@ -1,7 +1,8 @@
-//todo remove SwiftOTP
+//todo remove SwiftOTP and import Base32 Only
 
 import SwiftOTP
 import Foundation
+import Vapor
 
 public class OtpSecrets {
 
@@ -10,12 +11,9 @@ public class OtpSecrets {
     ///  @param size - Byte size of generated secret.
     ///  @returns base32 encoded secret
     public func generateSecret(length: Int = 32) -> String? {
-        var bytes = [UInt8](repeating: 0, count: length)
-        let status = SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes)
-
-        if status == errSecSuccess {
-            return base32Encode(bytes).replacingOccurrences(of: "=", with: "")
+        guard let hashSalted = try? Vapor.Bcrypt.hash("secret", cost: 12) else {
+            return nil
         }
-        return nil
+        return hashSalted.base32EncodedString.replacingOccurrences(of: "=", with: "")
     }
 }

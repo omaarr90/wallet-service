@@ -31,8 +31,10 @@ let package = Package(
     //product(name: "Crypto", package: "swift-crypto")
     targets: [
         .target(name: "Lib",
-                dependencies: [.product(name: "CryptoSwift", package: "CryptoSwift"), 
-                               .product(name: "SwiftOTP", package: "SwiftOTP"), 
+                dependencies: [
+                    .product(name: "CryptoSwift", package: "CryptoSwift"),
+                               .product(name: "SwiftOTP", package: "SwiftOTP"),
+                               .product(name: "Vapor", package: "vapor")
         ]),
         .target(name: "Domain"),
         .target(name: "Utilties",

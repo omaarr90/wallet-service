@@ -59,7 +59,7 @@ public class Hotp {
 //                (digest[Int(offset) + 2] & 0xff) << 8 |
 //                (digest[Int(offset) + 3] & 0xff);
 
-            var offset = digest[digest.count - 1] & 0xf;
+            let offset = digest[digest.count - 1] & 0xf;
 
             var code: UInt32 = 0
             code |= UInt32((digest[Int(offset)] & 0x7f));
