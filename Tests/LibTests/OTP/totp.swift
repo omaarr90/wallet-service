@@ -11,6 +11,7 @@ final class TotpTest: XCTestCase {
             XCTFail("unable to generate secret")
             return
         }
+        print(secret)
         switch totp.generate(secret: secret, options: IOptions()) {
         case .failure:
             XCTFail("unable to generate token")
@@ -57,6 +58,12 @@ final class TotpTest: XCTestCase {
             XCTAssertTrue(!valid)
         }
     }
+
+    static let allTests = [
+        ("testGenerateOtp", testGenerateOtp),
+        ("testVerifyOtpWithinWindowTime", testVerifyOtpWithinWindowTime),
+        ("testVerifyOtpAfterWindowTime", testVerifyOtpAfterWindowTime)
+    ]
 
 }
 
