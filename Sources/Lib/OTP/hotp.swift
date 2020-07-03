@@ -3,7 +3,7 @@
 */
 
 import Foundation
-import SwiftOTP
+import Base32
 import CryptoSwift
 
 public enum DigestOptionsError: Error {

@@ -1,10 +1,15 @@
-//todo remove SwiftOTP and import Base32 Only
+/*
+ based on https://github.com/lolivei/behin
+*/
 
-import SwiftOTP
 import Foundation
 import Vapor
+import Base32
 
 public class OtpSecrets {
+    public init() {
+
+    }
 
     /// Generates a base32 enconded secret.
     ///

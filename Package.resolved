@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "Base32",
+        "repositoryURL": "https://github.com/norio-nomura/Base32.git",
+        "state": {
+          "branch": null,
+          "revision": "69fc95dd2e4229a2fd82e14d9358c23b0fd8cf74",
+          "version": "0.8.0"
+        }
+      },
+      {
         "package": "console-kit",
         "repositoryURL": "https://github.com/vapor/console-kit.git",
         "state": {
@@ -170,15 +179,6 @@
           "branch": null,
           "revision": "f0b118d9af6c4e78bc4f3f4fbb464020172b0bf4",
           "version": "2.7.5"
-        }
-      },
-      {
-        "package": "SwiftOTP",
-        "repositoryURL": "https://github.com/lachlanbell/SwiftOTP.git",
-        "state": {
-          "branch": null,
-          "revision": "b45615e2dec54bde1d00f75f4e325685946ccf91",
-          "version": "2.0.1"
         }
       },
       {

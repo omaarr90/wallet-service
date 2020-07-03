@@ -2,10 +2,10 @@
 
 public class SmsSenderImpl: SmsSender{
     func send(to: Int64, text: String) -> Result<String, Error> {
-        .success(text)
+        .success("send: \(text) to \(to)")
     }
     
     func send(to: Int64, template: String, args: String...) -> Result<String, Error> {
-        .success("fill template with args")
+        .success("send: \(template) to \(to) with args: \(args)")
     }
 }

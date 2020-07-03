@@ -3,10 +3,11 @@
 */
 
 import Foundation
-import SwiftOTP
-import CryptoSwift
 
 public class Totp {
+    public init() {
+
+    }
 
     /// Generates a time based one-time password for a given secret at the current time.
     ///

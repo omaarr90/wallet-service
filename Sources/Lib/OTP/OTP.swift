@@ -1,6 +1,10 @@
+/*
+ based on https://github.com/lolivei/behin
+*/
+
 import CryptoSwift
 
-enum Alg {
+public enum Alg {
     case SHA1
     case SHA256
     case SHA512
@@ -17,7 +21,7 @@ enum Alg {
     }
 }
 
-enum OtpDigits {
+public enum OtpDigits {
     case six
     case seven
     case eight
@@ -60,7 +64,7 @@ public struct IOptions {
      */
     let alg: Alg
 
-    init(step: Int = 30, window: Int = 0, digits: OtpDigits = .six, alg: Alg = .SHA1) {
+    public init(step: Int = 30, window: Int = 0, digits: OtpDigits = .six, alg: Alg = .SHA1) {
         self.step = step
         self.window = window
         self.digits = digits

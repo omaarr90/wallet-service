@@ -1,30 +1,23 @@
-import SwiftOTP
-
-struct Otp {
-    let token: Int
+import Lib
+public struct Otp {
+    let token: String
     let secret: String
 
-    init(token: Int, secret: String) {
+    init(token: String, secret: String) {
         self.token = token
         self.secret = secret
     }
 }
 
 enum OtpError: Error {
-    case unableToDecodeSecret
-    case unableToCreateTotpObjectWithSettings
+    case unableToGenerateSecret
     case unableToGenerateOtp
-    case unableToGenerateOtpToVerifyAgainst
-}
-
-enum VerifyOtpError: Error {
-    case unableToGenerateOtpToVerifyAgainst
 }
 
 protocol OtpUtil {
 
-    func generateOtp(timeInterval: Int, digits: Int, algorithm: OTPAlgorithm) -> Result<Otp, OtpError>
+    func generateOtp(timeInterval: Int, digits: OtpDigits, algorithm: Alg) -> Result<Otp, OtpError>
 
-    func validOtp(otp: Otp, timeInterval: Int, digits: Int, algorithm: OTPAlgorithm) -> Result<Bool, VerifyOtpError>
+    func validOtp(otp: Otp, timeInterval: Int, digits: OtpDigits, algorithm: Alg) -> Bool
 
 }
