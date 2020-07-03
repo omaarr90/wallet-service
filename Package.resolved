@@ -20,12 +20,30 @@
         }
       },
       {
+        "package": "Base32",
+        "repositoryURL": "https://github.com/norio-nomura/Base32.git",
+        "state": {
+          "branch": null,
+          "revision": "69fc95dd2e4229a2fd82e14d9358c23b0fd8cf74",
+          "version": "0.8.0"
+        }
+      },
+      {
         "package": "console-kit",
         "repositoryURL": "https://github.com/vapor/console-kit.git",
         "state": {
           "branch": null,
           "revision": "4ffc23dd1d6454228f78194ef68d8b20fca9390a",
           "version": "4.1.1"
+        }
+      },
+      {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "39f08ac5269361a50c08ce1e2f41989bfc4b1ec8",
+          "version": "1.3.1"
         }
       },
       {

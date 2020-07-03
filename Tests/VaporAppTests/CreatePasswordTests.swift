@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by عمر سعيد الشمري on 20/06/2020.
 //
@@ -25,7 +25,7 @@ final class CreatePasswordTests: AppTestCase {
         }
         XCTAssertTrue(response.status == .created)
     }
-    
+
     func testCreatePasswordForExistingUser() throws {
         let expectation = self.expectation(description: "Registering")
         var expectedResponse: XCTHTTPResponse?
@@ -40,7 +40,7 @@ final class CreatePasswordTests: AppTestCase {
         }
         XCTAssertTrue(response.status == .badRequest)
     }
-    
+
     func testCreatePasswordWithInvalidMobileNumber() throws {
         // Add your tests here
         let expectation = self.expectation(description: "Registering")
@@ -89,7 +89,7 @@ final class CreatePasswordTests: AppTestCase {
         XCTAssertTrue(response.status == .badRequest)
     }
 
-    
+
     static let allTests = [
         ("testCreatePasswordForNewUser", testCreatePasswordForNewUser),
         ("testCreatePasswordForExistingUser", testCreatePasswordForExistingUser),
@@ -98,7 +98,7 @@ final class CreatePasswordTests: AppTestCase {
         ("testCreatePasswordWithInvalidJson", testCreatePasswordWithInvalidJson),
 
     ]
-    
+
     private var validCreatePasswordBody: ByteBuffer? {
         let json = """
         {
@@ -142,7 +142,7 @@ final class CreatePasswordTests: AppTestCase {
         let data = Data(json.utf8)
         return ByteBuffer(data: data)
     }
-    
+
     private var invalidJsonBody: ByteBuffer? {
         let json = """
         {
